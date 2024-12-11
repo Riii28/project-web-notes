@@ -1,10 +1,7 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from "framer-motion"
-import Navbar from './components/Navbar.jsx'
-import Home from './pages/Home.jsx'
-import Folders from './pages/Folders.jsx'
-import Notes from './pages/Notes.jsx'
 import './styles/App.css'
+import Header from './components/Header'
 
 const transitions = {
   initial: { opacity: 0 },
@@ -14,22 +11,11 @@ const transitions = {
 
 const App = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AnimatePresence>
-        <Navbar/>
-        <Routes key='route'>
-          <Route path='/' key='home' element={
-            <Home variants={transitions} />} 
-          />
-          <Route path='/folders' key='folders' element={
-            <Folders variants={transitions} variants2={transitions}/>} 
-          />
-          <Route path='/add-notes/:noteID?' key='notes' element={
-            <Notes variants={transitions} />} 
-          />
-        </Routes>
+        <Header />
       </AnimatePresence>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
