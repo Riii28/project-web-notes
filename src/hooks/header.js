@@ -1,3 +1,10 @@
+export const initalState = {
+    checklist: false,
+    search: false,
+    setting: false,
+    profile: false
+}
+
 export const reducer = (state, action) => {
     switch (action.type) {
         case 'CLICK_CHECKLIST':
@@ -19,11 +26,4 @@ export const reducer = (state, action) => {
         default:
             throw new Error('Unknown type action')
     }
-}
-
-export const initalState = {
-    checklist: false,
-    search: false,
-    setting: false,
-    profile: false
 }

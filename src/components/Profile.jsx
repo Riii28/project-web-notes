@@ -15,7 +15,7 @@ const Profile = () => {
                     className='rounded-[50%] cursor-pointer'
                     src={profil}
                     width='50'
-                    alt="" 
+                    alt="profile" 
                 />
             </div>
             <Modal child={<SetProfile />} state={state.profile} />                

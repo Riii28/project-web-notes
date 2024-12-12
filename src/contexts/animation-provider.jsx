@@ -1,6 +1,6 @@
-import { createContext } from "react"
+import { createContext, useContext } from "react"
 
-export const AnimationContext = createContext()
+const AnimationContext = createContext()
 
 export const AnimationProvider = ({ children }) => {
     const transitions = {
@@ -10,8 +10,10 @@ export const AnimationProvider = ({ children }) => {
     }
 
     return (
-        <AnimationContext.Provider value={{transitions}}>
+        <AnimationContext.Provider value={{ transitions }}>
             { children }
         </AnimationContext.Provider>
     )
 }
+
+export const useAnimation = () => useContext(AnimationContext)

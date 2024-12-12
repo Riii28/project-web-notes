@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheckSquare, faSearch, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
-import Profile from "./Profile"
+import Profile from "./Profile.jsx"
 import { useContext } from "react"
 import { HeaderContext } from "../contexts/header-provider.jsx"
 
