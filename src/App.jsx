@@ -4,11 +4,6 @@ import './styles/App.css'
 import Home from './pages/Home.jsx'
 import Folders from './pages/Folders.jsx'
 
-// const transitions = {
-//   initial: { opacity: 0 },
-//   animate: { opacity: 1 },
-//   exit: { opacity: 0 },
-// }
 
 const App = () => {
   return (

@@ -1,7 +1,8 @@
 
 const Modal = ({ child, state }) => {
     return (
-        <div className={`${state ? 'fixed' : 'hidden'} top-0 left-0 w-full h-full bg-transparent z-10`}>
+        <div className={`${state ? 'fixed' : 'hidden'} top-0 left-0 w-full h-full bg-transparent z-20`}>
+            
             { child }
         </div>
     )

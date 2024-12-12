@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import profil from '../assets/default.jpg'
 import { HeaderContext } from '../contexts/header-provider.jsx'
-import Modal from './Modal'
-import SetProfile from './SetProfile'
+import Modal from './Modal.jsx'
+import SetProfile from './SetProfile.jsx'
 
 const Profile = () => {
     const { state, dispatch } = useContext(HeaderContext)
@@ -18,9 +18,7 @@ const Profile = () => {
                     alt="" 
                 />
             </div>
-            <Modal state={state.profile}>
-                <SetProfile />
-            </Modal>
+            <Modal child={<SetProfile />} state={state.profile} />                
         </>
     )
 }
