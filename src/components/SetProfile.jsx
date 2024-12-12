@@ -7,21 +7,37 @@ const SetProfile = () => {
     const [state, setState] = useReducer(reducer, initalState)
 
     const handlePreview = (e) => {
-        const file = e.target.files[0]
-        if (file) {
-            const reader = new FileReader()
-            reader.onload = () => {
-                setState({ type: 'ON_PREVIEW', payload: reader.result })
-            }
-            reader.readAsDataURL(file)
+        const image = e.target.files[0]
+        if (!image) {
+            alert('Kamu belum memilih gambar')
+            return
         }
+
+        const validTypes = ['image/jpeg', 'image/png']
+        if (!validTypes.includes(image.type)) {
+            alert('Tipe gambar tidak didukung')
+            return
+        }
+
+        const maxSize = 2
+        if (image.size > maxSize * 1024 * 1024) {
+            alert(`Batas ukuran gambar adalah ${maxSize}mb`)
+            return
+        }
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            setState({ type: 'ON_PREVIEW', payload: reader.result })
+        }
+        reader.readAsDataURL(image)
     }
 
     return (
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-light shadow-md w-80 p-4 rounded-md">
             <span className="block font-semibold text-xl">Change Profile</span>
             <div className="flex flex-col gap-y-3 items-center mt-8">
-                <img 
+                <img
+                    className="aspect-square cursor-pointer"
                     src={state.preview} 
                     alt="profile"
                     width={150}

@@ -12,7 +12,7 @@ export const reducer = (state, action) => {
                 ...state, preview: action.payload
             }
         case 'ON_SAVE':
-            const finalProfile = state.preview || profileDefault
+            const finalProfile = action.payload || profileDefault
             localStorage.setItem('profile', JSON.stringify(finalProfile))
             return {
                 ...state, final: finalProfile

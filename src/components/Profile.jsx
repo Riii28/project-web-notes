@@ -12,7 +12,7 @@ const Profile = () => {
             <div>
                 <img
                     onClick={() => dispatch({ type: 'CLICK_PROFILE' })}
-                    className='rounded-[50%] cursor-pointer'
+                    className='rounded-[50%] cursor-pointer aspect-square'
                     src={profil}
                     width='50'
                     alt="profile" 
