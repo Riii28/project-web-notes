@@ -12,8 +12,13 @@ export default {
           200: '#5c5c5c'
         }
       },
+      textColor: {
+        'light': '#f5f5f5',
+        'dark': '#333333'
+      },
       backgroundColor: {
-        'light': '#f5f5f5'
+        'light': '#f5f5f5',
+        'dark': '#333333'
       },
     },
   },

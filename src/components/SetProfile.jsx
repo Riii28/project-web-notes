@@ -1,50 +1,116 @@
-import { useContext, useReducer } from "react"
+import { useContext } from "react"
 import { HeaderContext } from "../contexts/header-provider.jsx"
-import { reducer, initalState } from "../hooks/profile.js"
+import { ProfileContext } from "../contexts/profile-provider.jsx"
+import { toast } from 'react-hot-toast'
+import profileDefault from '../assets/default.jpg'
 
 const SetProfile = () => {
-    const { dispatch } = useContext(HeaderContext)
-    const [state, setState] = useReducer(reducer, initalState)
+    const { dispatch: headerDispatch } = useContext(HeaderContext)
+    const { state: profileState, dispatch: profileDispatch } = useContext(ProfileContext)
 
-    const handlePreview = (e) => {
-        const image = e.target.files[0]
+    const handleChange = (e) => {
+        const input = e.target
+        const image = input.files[0]
+
         if (!image) {
-            alert('Kamu belum memilih gambar')
+            toast.error('Kamu belum memilih gambar')
             return
         }
-
-        const validTypes = ['image/jpeg', 'image/png']
+    
+        const validTypes = ["image/jpeg", "image/png"]
         if (!validTypes.includes(image.type)) {
-            alert('Tipe gambar tidak didukung')
+            toast.error('Tipe gambar harus berupa JPEG atau PNG')
             return
         }
-
-        const maxSize = 2
+    
+        const maxSize = 1
         if (image.size > maxSize * 1024 * 1024) {
-            alert(`Batas ukuran gambar adalah ${maxSize}mb`)
+            toast.error(`Batas ukuran gambar adalah ${maxSize}MB`)
             return
         }
 
         const reader = new FileReader()
         reader.onload = () => {
-            setState({ type: 'ON_PREVIEW', payload: reader.result })
+            profileDispatch({ type: 'ON_PREVIEW', payload: reader.result })
+            input.value = ''
         }
         reader.readAsDataURL(image)
     }
 
+    const handleSave = () => {
+        const savedProfile = JSON.parse(localStorage.getItem('profile'))
+        const currentProfile = profileState.preview
+
+        if (!currentProfile || currentProfile === profileDefault) {
+            toast.error('Belum ada gambar untuk disimpan')
+            return
+        }
+
+        if (savedProfile === currentProfile) {
+            toast.error('Gambar sudah di simpan')
+            return
+        }
+ 
+        profileDispatch({ type: 'ON_SAVE' })
+        headerDispatch({ type: 'CLICK_PROFILE' })
+        toast.success('Success')
+    }
+
+    const confirmDelete = () => {
+        toast(
+            <span>
+                Delete this profile?
+                <div className="mt-4 flex justify-between">                  
+                    <button
+                        className="px-3 py-1 bg-red-500 text-white rounded-md"
+                        onClick={() => {
+                            const currentProfile = profileState.preview
+                    
+                            if (!currentProfile || currentProfile === profileDefault) {
+                                toast.error('Tidak ada gambar')
+                                return
+                            }
+
+                            profileDispatch({ type: 'ON_DELETE' })
+                            headerDispatch({ type: 'CLICK_PROFILE' })
+                            toast.dismiss()
+                            toast.success('Berhasil dihapus')
+                        }}
+                    >
+                        Yes
+                    </button>
+                    <button
+                        className="ml-2 px-3 py-1 bg-gray-200 rounded-md"
+                        onClick={() => {
+                            headerDispatch({ type: 'CLICK_PROFILE' })
+                            toast.dismiss()
+                        }}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </span>,
+          {
+            position: "top-center",
+            autoClose: false,
+          }
+        )
+      }
+
     return (
-        <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-light shadow-md w-80 p-4 rounded-md">
+        <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-dark shadow-md w-full h-full md:w-96 md:h-auto p-4 rounded-md">
             <span className="block font-semibold text-xl">Change Profile</span>
             <div className="flex flex-col gap-y-3 items-center mt-8">
                 <img
-                    className="aspect-square cursor-pointer"
-                    src={state.preview} 
+                    onClick={confirmDelete}
+                    className="aspect-square cursor-pointer object-cover"
                     alt="profile"
+                    src={profileState.preview}
                     width={150}
                 />
-                <label htmlFor="profile">Upload</label>
+                <label className="hover:underline" htmlFor="profile">Upload</label>
                 <input
-                    onChange={handlePreview}
+                    onChange={handleChange}
                     hidden
                     accept="image/*"
                     id="profile" 
@@ -53,13 +119,13 @@ const SetProfile = () => {
             </div>
             <div className="flex justify-end gap-x-6 mt-8">
                 <button
-                    onClick={() => dispatch({ type: 'CLICK_PROFILE'})}
+                    onClick={() => headerDispatch({ type: 'CLICK_PROFILE' })}
                     className="px-2 py-1 bg-indigo-100 rounded-md"
                 >
                     Cancel
                 </button>
                 <button
-                    onClick={() => setState({ type: 'ON_SAVE'})}
+                    onClick={handleSave}
                     className="px-2 py-1 bg-yellow-300 rounded-md"
                 >
                     Save

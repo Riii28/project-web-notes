@@ -1,24 +1,28 @@
 import { useContext } from 'react'
-import profil from '../assets/default.jpg'
 import { HeaderContext } from '../contexts/header-provider.jsx'
 import Modal from './Modal.jsx'
 import SetProfile from './SetProfile.jsx'
+import { ProfileContext } from '../contexts/profile-provider.jsx'
+
 
 const Profile = () => {
-    const { state, dispatch } = useContext(HeaderContext)
+    const { state: headerState, dispatch: headerDispatch } = useContext(HeaderContext)
+    const { state: profile} = useContext(ProfileContext)
 
     return (
         <>
             <div>
                 <img
-                    onClick={() => dispatch({ type: 'CLICK_PROFILE' })}
-                    className='rounded-[50%] cursor-pointer aspect-square'
-                    src={profil}
-                    width='50'
+                    onClick={() => headerDispatch({ type: 'CLICK_PROFILE' })}
+                    className='rounded-[50%] cursor-pointer aspect-square object-cover'
+                    src={profile.final}
+                    width='60'
                     alt="profile" 
                 />
             </div>
-            <Modal child={<SetProfile />} state={state.profile} />                
+            <Modal state={headerState.profile}>
+                <SetProfile />
+            </Modal>
         </>
     )
 }

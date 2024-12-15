@@ -1,4 +1,4 @@
-export const initalState = {
+export const initialState = {
     checklist: false,
     search: false,
     setting: false,

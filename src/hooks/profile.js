@@ -1,24 +1,30 @@
 import profileDefault from '../assets/default.jpg'
 
-export const initalState = {
-    preview: profileDefault,
-    final: JSON.parse(localStorage.getItem('profile')) || profileDefault
+export const initialState = {
+    preview: localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile')) : profileDefault,
+    final: localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile')) : profileDefault
 }
 
 export const reducer = (state, action) => {
     switch (action.type) {
         case 'ON_PREVIEW':
             return {
-                ...state, preview: action.payload
+                ...state, 
+                preview: action.payload,
             }
         case 'ON_SAVE':
-            const finalProfile = action.payload || profileDefault
-            localStorage.setItem('profile', JSON.stringify(finalProfile))
+            localStorage.setItem('profile', JSON.stringify(state.preview))
             return {
-                ...state, final: finalProfile
+                ...state, 
+                final: state.preview
+            }
+        case 'ON_DELETE':
+            localStorage.removeItem('profile')
+            return {
+                preview: profileDefault,
+                final: profileDefault
             }
         default:
             throw new Error('Unknown action type')
     }
-}
-
+};
