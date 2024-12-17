@@ -1,13 +1,13 @@
 import { useContext } from 'react'
-import { HeaderContext } from '../contexts/header-provider.jsx'
+import { useHeaderContext } from '../contexts/header-provider.jsx'
 import Modal from './Modal.jsx'
 import SetProfile from './SetProfile.jsx'
-import { ProfileContext } from '../contexts/profile-provider.jsx'
+import { useProfileContext } from '../contexts/profile-provider.jsx'
 
 
 const Profile = () => {
-    const { state: headerState, dispatch: headerDispatch } = useContext(HeaderContext)
-    const { state: profile} = useContext(ProfileContext)
+    const { state: headerState, dispatch: headerDispatch } = useHeaderContext()
+    const { state: profile} = useProfileContext()
 
     return (
         <>

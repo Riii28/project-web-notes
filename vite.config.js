@@ -4,6 +4,6 @@ import { ghPages } from 'vite-plugin-gh-pages'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/project-web-notes',
+  // base: '/project-web-notes/',
   plugins: [react(), ghPages()],
 })

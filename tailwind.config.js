@@ -8,19 +8,14 @@ export default {
     extend: {
       colors: {
         color: {
-          100: '#333333',
-          200: '#5c5c5c'
+          light: '#f5f5f5', // warna background light
+          dark: '#121212', // warna background dark
+          textDark: '#333333', // warna teks dark
+          textLight: '#f5f5f5' 
         }
-      },
-      textColor: {
-        'light': '#f5f5f5',
-        'dark': '#333333'
-      },
-      backgroundColor: {
-        'light': '#f5f5f5',
-        'dark': '#333333'
       },
     },
   },
+  darkMode: 'class',
   plugins: [],
 }

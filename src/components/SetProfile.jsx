@@ -1,12 +1,11 @@
-import { useContext } from "react"
-import { HeaderContext } from "../contexts/header-provider.jsx"
-import { ProfileContext } from "../contexts/profile-provider.jsx"
+import { useHeaderContext } from "../contexts/header-provider.jsx"
+import { useProfileContext } from "../contexts/profile-provider.jsx"
 import { toast } from 'react-hot-toast'
 import profileDefault from '../assets/default.jpg'
 
 const SetProfile = () => {
-    const { dispatch: headerDispatch } = useContext(HeaderContext)
-    const { state: profileState, dispatch: profileDispatch } = useContext(ProfileContext)
+    const { dispatch: headerDispatch } = useHeaderContext()
+    const { state: profileState, dispatch: profileDispatch } = useProfileContext()
 
     const handleChange = (e) => {
         const input = e.target
@@ -98,7 +97,7 @@ const SetProfile = () => {
       }
 
     return (
-        <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-dark shadow-md w-full h-full md:w-96 md:h-auto p-4 rounded-md">
+        <div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-dark shadow-md w-full h-full md:w-96 md:h-auto p-4 rounded-md z-30">
             <span className="block font-semibold text-xl">Change Profile</span>
             <div className="flex flex-col gap-y-3 items-center mt-8">
                 <img

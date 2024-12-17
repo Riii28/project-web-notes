@@ -19,7 +19,7 @@ const Modal = ({ children, state, timeout, dispatch, nameDispatch }) => {
     }, [state, timeout])
 
     return (
-        <div className={`${state ? 'fixed' : 'hidden'} top-0 left-0 w-full h-full bg-transparent z-20`}>
+        <div className={`${state ? 'fixed' : 'hidden'} top-0 left-0 w-full h-full bg-transparent z-30`}>
             {state && (
                 <motion.div
                     initial="initial"

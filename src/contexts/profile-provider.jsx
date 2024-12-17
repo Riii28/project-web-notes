@@ -1,10 +1,8 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { reducer, initialState } from '../hooks/profile.js'
 
-// Context
-export const ProfileContext = createContext();
+const ProfileContext = createContext();
 
-// Provider
 export const ProfileProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -14,3 +12,5 @@ export const ProfileProvider = ({ children }) => {
         </ProfileContext.Provider>
     );
 };
+
+export const useProfileContext = () => useContext(ProfileContext)

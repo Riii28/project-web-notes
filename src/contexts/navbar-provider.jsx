@@ -1,7 +1,7 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { reducer, initialState } from "../hooks/navbar.js";
 
-export const NavbarContext = createContext()
+const NavbarContext = createContext()
 
 export const NavbarProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -13,3 +13,4 @@ export const NavbarProvider = ({ children }) => {
     )
 }
 
+export const useNavbarContext = () => useContext(NavbarContext)

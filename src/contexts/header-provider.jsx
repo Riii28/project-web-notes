@@ -1,7 +1,7 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { reducer, initialState } from "../hooks/header.js";
 
-export const HeaderContext = createContext()
+const HeaderContext = createContext()
 
 export const HeaderProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
@@ -12,3 +12,5 @@ export const HeaderProvider = ({ children }) => {
         </HeaderContext.Provider>
     )
 }
+
+export const useHeaderContext = () => useContext(HeaderContext)

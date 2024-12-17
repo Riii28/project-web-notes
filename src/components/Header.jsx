@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheckSquare, faSearch, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 import Profile from "./Profile.jsx"
-import { useContext } from "react"
-import { HeaderContext } from "../contexts/header-provider.jsx"
+import { useHeaderContext } from "../contexts/header-provider.jsx"
 import { ProfileProvider } from "../contexts/profile-provider.jsx"
 
 const Header = () => {
-    const { dispatch: headerDispatch } = useContext(HeaderContext)
+    const { dispatch: headerDispatch } = useHeaderContext()
 
     return (
         <ProfileProvider>
-            <div className="fixed top-0 left-0 w-full flex justify-between p-3 rounded-b-xl">
+            <div className="fixed top-0 left-0 w-full flex justify-between p-3 rounded-b-xl bg-color-light text-color-dark dark:bg-color-dark dark:text-color-light transition-colors duration-200">
                 <span className="block text-4xl font-semibold">Notes</span>
                 <div className="flex flex-col gap-y-5 items-center">
                     <Profile />
