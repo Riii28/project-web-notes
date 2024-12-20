@@ -1,11 +1,19 @@
-import { useHeaderContext } from "../contexts/header-provider.jsx"
 import { useProfileContext } from "../contexts/profile-provider.jsx"
 import { toast } from 'react-hot-toast'
 import profileDefault from '../assets/default.jpg'
+import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronLeft, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { motion } from "framer-motion"
+import { useAnimation } from "../contexts/animation-provider.jsx"
+import { useEffect, useState } from "react"
+import ProfileDetail from "../components/ProfileDetail.jsx"
+import ProfilePopup from "../components/ProfilePopup.jsx"
+import ProfileHeader from "../components/ProfileHeader.jsx"
 
-const SetProfile = () => {
-    const { dispatch: headerDispatch } = useHeaderContext()
+const Profile = () => {
     const { state: profileState, dispatch: profileDispatch } = useProfileContext()
+    const { transitions } = useAnimation()
 
     const handleChange = (e) => {
         const input = e.target
@@ -15,7 +23,7 @@ const SetProfile = () => {
             toast.error('Kamu belum memilih gambar')
             return
         }
-    
+
         const validTypes = ["image/jpeg", "image/png"]
         if (!validTypes.includes(image.type)) {
             toast.error('Tipe gambar harus berupa JPEG atau PNG')
@@ -51,7 +59,6 @@ const SetProfile = () => {
         }
  
         profileDispatch({ type: 'ON_SAVE' })
-        headerDispatch({ type: 'CLICK_PROFILE' })
         toast.success('Success')
     }
 
@@ -71,7 +78,6 @@ const SetProfile = () => {
                             }
 
                             profileDispatch({ type: 'ON_DELETE' })
-                            headerDispatch({ type: 'CLICK_PROFILE' })
                             toast.dismiss()
                             toast.success('Berhasil dihapus')
                         }}
@@ -81,7 +87,6 @@ const SetProfile = () => {
                     <button
                         className="ml-2 px-3 py-1 bg-gray-200 rounded-md"
                         onClick={() => {
-                            headerDispatch({ type: 'CLICK_PROFILE' })
                             toast.dismiss()
                         }}
                     >
@@ -97,17 +102,23 @@ const SetProfile = () => {
       }
 
     return (
-        <div className="fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-dark shadow-md w-full h-full md:w-96 md:h-auto p-4 rounded-md z-30">
-            <span className="block font-semibold text-xl">Change Profile</span>
-            <div className="flex flex-col gap-y-3 items-center mt-8">
+        <motion.div 
+            className="p-4 bg-color-light text-color-dark dark:bg-color-dark dark:text-color-light transition-colors duration-200 relative"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={transitions}
+            transition={{ duration: 0.5 }}  
+        >
+            <ProfileHeader />
+            <div className="flex flex-col gap-y-3 mt-24 ">
                 <img
-                    onClick={confirmDelete}
-                    className="aspect-square cursor-pointer object-cover"
+                    onClick={() => profileDispatch({ type: 'ON_EDIT' })}
+                    className="aspect-square cursor-pointer object-cover rounded-[50%]"
                     alt="profile"
                     src={profileState.preview}
-                    width={150}
+                    width={200}
                 />
-                <label className="hover:underline" htmlFor="profile">Upload</label>
                 <input
                     onChange={handleChange}
                     hidden
@@ -115,25 +126,14 @@ const SetProfile = () => {
                     id="profile" 
                     type="file"
                 />
+                <span></span>
             </div>
-            <div className="flex justify-end gap-x-6 mt-8">
-                <button
-                    onClick={() => headerDispatch({ type: 'CLICK_PROFILE' })}
-                    className="px-2 py-1 bg-indigo-100 rounded-md"
-                >
-                    Cancel
-                </button>
-                <button
-                    onClick={handleSave}
-                    className="px-2 py-1 bg-yellow-300 rounded-md"
-                >
-                    Save
-                </button>
-            </div>
-        </div>
+            <ProfileDetail />
+            <ProfilePopup />
+        </motion.div>
     )
 }
 
 
 
-export default SetProfile
+export default Profile

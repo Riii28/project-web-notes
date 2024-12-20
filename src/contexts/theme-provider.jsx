@@ -10,8 +10,8 @@ export const ThemeProvider = ({ children }) => {
     const handleTheme = () => {
         setTheme((prev) => {
             const newTheme = prev === 'dark' ? 'light' : 'dark'
-            setTheme(newTheme)
             localStorage.setItem('theme', newTheme)
+            return newTheme
         })
     }
 
@@ -21,7 +21,6 @@ export const ThemeProvider = ({ children }) => {
         } else {
             document.documentElement.classList.remove('dark')
         }
-        localStorage.setItem('theme', theme)
     }, [theme])
 
     return (

@@ -19,10 +19,6 @@ export const reducer = (state, action) => {
             return {
                 profile: false, checklist: false, search: false, setting: !state.setting
             }
-        case "CLICK_PROFILE":
-            return {
-                checklist: false, search: false, setting: false, profile: !state.profile
-            }
         default:
             throw new Error('Unknown type action')
     }

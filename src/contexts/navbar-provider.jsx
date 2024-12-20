@@ -1,5 +1,5 @@
-import { createContext, useContext, useReducer } from "react";
-import { reducer, initialState } from "../hooks/navbar.js";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { reducer, initialState } from "../hooks/navigation.js";
 
 const NavbarContext = createContext()
 

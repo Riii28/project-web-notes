@@ -26,7 +26,7 @@ const FabButton = () => {
                             navDispatch({ type: 'FAB' })
                         }}               
                         className={`${navState.setNotes ? 'text-yellow-300' : ''} transition-transform duration-200`}
-                        to={'/set-notes/:noteID'}
+                        to={'/set-notes'}
                     >
                         <FontAwesomeIcon 
                             size="2x" 
