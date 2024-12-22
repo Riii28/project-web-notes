@@ -606,6 +606,10 @@ video {
   z-index: 30;
 }
 
+.m-3 {
+  margin: 0.75rem;
+}
+
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -651,8 +655,8 @@ video {
   aspect-ratio: 1 / 1;
 }
 
-.h-\[30rem\] {
-  height: 30rem;
+.h-\[33rem\] {
+  height: 33rem;
 }
 
 .h-full {
@@ -663,12 +667,12 @@ video {
   width: 4rem;
 }
 
-.w-3\/4 {
-  width: 75%;
-}
-
 .w-32 {
   width: 8rem;
+}
+
+.w-72 {
+  width: 18rem;
 }
 
 .w-full {
@@ -922,6 +926,12 @@ video {
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .outline-none {
