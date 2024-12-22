@@ -1,12 +1,11 @@
 import { useTheme } from "../contexts/theme-provider.jsx"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useHeaderContext } from "../contexts/header-provider.jsx"
 import { motion } from "framer-motion"
 import { useAnimation } from "../contexts/animation-provider.jsx"
 import toast from "react-hot-toast"
 
 const Setting = () => {
-    const { handleTheme, theme } = useTheme()
+    const { handleTheme } = useTheme()
     const { state: headerState, dispatch: headerDispatch } = useHeaderContext()
     const { transitions } = useAnimation()
 
@@ -28,7 +27,7 @@ const Setting = () => {
                         }}
                         className="flex"
                     >
-                        Theme {theme}
+                        Theme
                     </button>
                     <button
                         onClick={() => {

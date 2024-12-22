@@ -5,7 +5,7 @@ import { useNavbarContext } from "../contexts/navbar-provider.jsx"
 const Home = () => {
 
     return (
-        <div className=" pt-36 ">
+        <div className="pt-36 pb-24">
             <NotesList />
         </div>
     )

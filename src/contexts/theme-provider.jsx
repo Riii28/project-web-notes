@@ -4,12 +4,12 @@ const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'light'
+        return localStorage.getItem('theme') || 'dark'
     })
 
     const handleTheme = () => {
         setTheme((prev) => {
-            const newTheme = prev === 'dark' ? 'light' : 'dark'
+            const newTheme = prev === 'light' ? 'dark' : 'light'
             localStorage.setItem('theme', newTheme)
             return newTheme
         })
@@ -30,5 +30,10 @@ export const ThemeProvider = ({ children }) => {
     ) 
 }
 
-export const useTheme = () => useContext(ThemeContext)
-
+export const useTheme = () => {
+    const context = useContext(ThemeContext)
+    if (!context) {
+        throw new Error("useTheme must be used within a ThemeProvider")
+    }
+    return context
+}

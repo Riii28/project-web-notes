@@ -4,13 +4,15 @@ import { faFolderPlus, faPlusCircle, faNotesMedical } from "@fortawesome/free-so
 import { motion } from "framer-motion";
 import { useAnimation } from "../contexts/animation-provider.jsx";
 import { Link } from "react-router-dom";
+import { useHeaderContext } from "../contexts/header-provider.jsx";
 
 const FabButton = () => {
     const { state: navState, dispatch: navDispatch } = useNavbarContext()
     const { transitions } = useAnimation()
+    const { state: headerState } = useHeaderContext()
     
     return (
-        <div className="fixed right-10 bottom-32 flex flex-col items-center gap-y-4">
+        <div className={`${headerState.checklist ? 'opacity-50' : ''} fixed right-10 bottom-32 flex flex-col items-center gap-y-4`}>
             {navState.fab && (
                 <motion.div
                     className="flex flex-col items-center gap-y-4 "
@@ -27,6 +29,7 @@ const FabButton = () => {
                         }}               
                         className={`${navState.setNotes ? 'text-yellow-300' : ''} transition-transform duration-200`}
                         to={'/set-notes'}
+                        title="Add note"
                     >
                         <FontAwesomeIcon 
                             size="2x" 
@@ -40,6 +43,7 @@ const FabButton = () => {
                         }}
                         className={`${navState.setFolders ? 'text-yellow-300' : ''} transition-transform duration-200`}
                         to={'/folders'}
+                        title="Add folder"
                     >
                         <FontAwesomeIcon 
                             size="2x" 

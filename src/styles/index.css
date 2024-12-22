@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 html {
-    @apply bg-color-light text-color-dark transition-colors duration-200;
+    @apply bg-color-light text-color-textDark transition-colors duration-200;
 }
 
 html.dark {
-    @apply bg-color-dark text-color-light transition-colors duration-200;
+    @apply bg-color-dark text-color-textLight transition-colors duration-200;
 }
