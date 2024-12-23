@@ -15,7 +15,7 @@ const SetFolders = () => {
 
         notesDispatch({ type: 'CREATE_FOLDER', payload: notesState.folder.trim() })
         navDispatch({ type: 'SET_FOLDERS' })
-        toast.success('Succes')
+        toast.success('Success')
     }
 
     return (
@@ -28,9 +28,10 @@ const SetFolders = () => {
                     className="w-full rounded-md p-2 text-color-textDark outline-none"
                     type="text"
                     placeholder='Folder' 
+                    maxLength={50}
                     required
                 />
-                <div className='flex justify-end gap-x-3'>
+                <div className='flex justify-end gap-x-5'>
                     <button
                         onClick={() => {
                             navDispatch({ type: 'SET_FOLDERS' })

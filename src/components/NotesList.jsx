@@ -39,7 +39,7 @@ const NotesList = () => {
                                     variants={transitions}
                                     transition={{ duration: 0.5 }}                        
                                     checked={notesState.selected.includes(note.id)}
-                                    onChange={() => notesDispatch({ type: 'SELECTED', payload: note.id })}
+                                    onChange={() => notesDispatch({ type: 'SELECTED', payload: { id: note.id, type: 'notes'} })}
                                     type="checkbox"  
                                 />
                             )}
@@ -57,7 +57,7 @@ const NotesList = () => {
                     </div>
                 ))
             ) : (
-                <span className="text-2xl">No notes</span>
+                <span className="block text-2xl">No notes</span>
             )}
         </motion.div>
     )

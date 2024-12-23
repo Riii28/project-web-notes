@@ -6,12 +6,24 @@ import { Link } from "react-router-dom"
 import { useNavbarContext } from "../contexts/navbar-provider.jsx"
 import Setting from "./Setting.jsx"
 import { useNotesContext } from "../contexts/notes-provider.jsx"
+import toast from "react-hot-toast"
 
 const Header = () => {
-    const { dispatch: notesDispatch } = useNotesContext()
+    const { state: notesState, dispatch: notesDispatch } = useNotesContext()
     const { state: headerState, dispatch: headerDispatch } = useHeaderContext()
     const { state: profile } = useProfileContext()
     const { dispatch: navDispatch } = useNavbarContext()
+
+    const handleDeleteSelected = () => {
+        if (!notesState.selected.length > 0) {
+            toast.error('No item selected')
+            return
+        }
+
+        notesDispatch({ type: 'DELETE_SELECTED' })
+        headerDispatch({ type: 'CLICK_CHECKLIST' })
+        toast.success('Deleted')
+    }
 
     return (
             <header className="fixed top-0 left-0 w-full flex justify-between p-4 rounded-b-xl bg-color-light text-color-dark dark:bg-color-dark dark:text-color-light transition-colors duration-200">
@@ -29,25 +41,29 @@ const Header = () => {
                             src={profile.final}
                             width='60'
                             alt="profile" 
+                            
                         />
                     </Link>
                     <div>
                         <div className={`${headerState.checklist ? 'flex' : 'hidden'} gap-x-6`}>
                             <button
-                                onClick={() => {
-                                    notesDispatch({ type: 'DELETE_SELECTED' })
-                                    headerDispatch({ type: 'CLICK_CHECKLIST' })
-                                }}
+                                onClick={handleDeleteSelected}
                             >
                                 <FontAwesomeIcon 
                                     size="lg" 
                                     icon={faTrash}
-                                    title="Delete notes"
+                                    title="Delete"
                                 />
                             </button>
 
-                            <button>
-                                <FontAwesomeIcon size="lg" icon={faPlusSquare}/>
+                            <button
+                                onClick={() => headerDispatch({ type: 'CLICK_SELECT' })}
+                            >
+                                <FontAwesomeIcon 
+                                    size="lg" 
+                                    icon={faPlusSquare}
+                                    title="Add to folder"
+                                />
                             </button>
 
                             <button
@@ -68,7 +84,7 @@ const Header = () => {
                                 <FontAwesomeIcon 
                                     size="lg"  
                                     icon={faCheckSquare}
-                                    title="Select notes"
+                                    title="Select"
                                 />
                             </button>
 

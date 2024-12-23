@@ -44,23 +44,6 @@ const Profile = () => {
         reader.readAsDataURL(image)
     }
 
-    const handleSave = () => {
-        const savedProfile = JSON.parse(localStorage.getItem('profile'))
-        const currentProfile = profileState.preview
-
-        if (!currentProfile || currentProfile === profileDefault) {
-            toast.error('Belum ada gambar untuk disimpan')
-            return
-        }
-
-        if (savedProfile === currentProfile) {
-            toast.error('Gambar sudah di simpan')
-            return
-        }
- 
-        profileDispatch({ type: 'ON_SAVE' })
-        toast.success('Success')
-    }
 
     const confirmDelete = () => {
         toast(
@@ -126,7 +109,7 @@ const Profile = () => {
                     id="profile" 
                     type="file"
                 />
-                <span></span>
+                <span>(****  Mungkin kedepannya bakal ngambil data user pake database ****)</span>
             </div>
             <ProfileDetail />
             <ProfilePopup />

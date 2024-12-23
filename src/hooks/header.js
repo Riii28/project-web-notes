@@ -1,23 +1,28 @@
+
 export const initialState = {
     checklist: false,
     search: false,
     setting: false,
-    profile: false
+    selectedFolder: false
 }
 
 export const reducer = (state, action) => {
     switch (action.type) {
         case 'CLICK_CHECKLIST':
             return { 
-                profile: false, search: false, setting: false, checklist: !state.checklist 
+                select: false, search: false, setting: false, checklist: !state.checklist 
             }
         case 'CLICK_SEARCH':
             return {
-                profile: false, setting: false, checklist: false, search: !state.search
+                select: false, setting: false, checklist: false, search: !state.search
             }
         case 'CLICK_SETTING':
             return {
-                profile: false, checklist: false, search: false, setting: !state.setting
+                select: false, checklist: false, search: false, setting: !state.setting
+            }
+        case 'CLICK_SELECT':
+            return {
+                ...state, search: false, setting: false, selectedFolder: !state.selectedFolder
             }
         default:
             throw new Error('Unknown type action')

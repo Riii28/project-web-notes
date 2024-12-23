@@ -12,7 +12,7 @@ const FabButton = () => {
     const { state: headerState } = useHeaderContext()
     
     return (
-        <div className={`${headerState.checklist ? 'opacity-50' : ''} fixed right-10 bottom-32 flex flex-col items-center gap-y-4`}>
+        <div title="FAB" className={`${headerState.checklist ? 'opacity-50' : ''} fixed right-10 bottom-32 flex flex-col items-center gap-y-4`}>
             {navState.fab && (
                 <motion.div
                     className="flex flex-col items-center gap-y-4 "

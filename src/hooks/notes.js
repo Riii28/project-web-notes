@@ -64,33 +64,40 @@ export const reducer = (state, action) => {
                 character: 0
             }
         case 'SELECTED':
-            const isSelected = state.selected.includes(action.payload)
+            const isSelected = state.selected.includes(action.payload.id)
+            const updatedSelected = isSelected
+                ? state.selected.filter((id) => id !== action.payload.id)
+                : [...state.selected, action.payload.id]
+
             return {
                 ...state,
-                selected: isSelected
-                    ? state.selected.filter((id) => id !== action.payload)
-                    : [...state.selected, action.payload]
+                selected: updatedSelected
             }
         case 'DELETE_SELECTED':
-            const cleanedNotes = state.notes.filter((note) => {
+            const remainingNotes = state.notes.filter((note) => {
                 return !state.selected.includes(note.id)
             })
 
-            const cleanedFolders = Object.fromEntries(
-                Object.entries(state.folders).map(([key, notes]) => ([
-                    key,
-                    notes.filter((id) => !state.selected.includes(id))
-                ]))
+            const remainingFolders = Object.fromEntries(
+                Object.entries(state.folders).filter(
+                    ([folderName]) => !state.selected.includes(folderName)
+                )
             )
 
-            localStorage.setItem('notes', JSON.stringify(cleanedNotes))
-            localStorage.setItem('folders', JSON.stringify(cleanedFolders))
+            localStorage.setItem('notes', JSON.stringify(remainingNotes))
+            localStorage.setItem('folders', JSON.stringify(remainingFolders))
 
             return {
                 ...state,
-                notes: cleanedNotes,
-                folders: cleanedFolders,
+                notes: remainingNotes,
+                folders: remainingFolders,
                 selected: []
+            }
+        case 'LOAD_STATE':
+            return {
+                ...state,
+                notes: action.payload.notes,
+                folders: action.payload.folders,
             }
         case 'CREATE_FOLDER':
             if (state.folders[action.payload]) return state
@@ -107,20 +114,21 @@ export const reducer = (state, action) => {
             }
 
         case 'ADD_TO_FOLDER':
-            const { folderName, noteID } = action.payload
+            const { folderName } = action.payload
 
             const updatedFolders = {
                 ...state.folders,
                 [folderName]: state.folders[folderName]
-                    ? [...state.folders[folderName], [noteID]]
-                    : [noteID]
+                    ? [...new Set([...state.folders[folderName], ...state.selected])]
+                    : [...state.selected]
             }
 
             localStorage.setItem('folders', JSON.stringify(updatedFolders))
 
             return {
                 ...state,
-                folders: updatedFolders
+                folders: updatedFolders,
+                selected: []
             }
         default:
             throw new Error('Unknown action type')

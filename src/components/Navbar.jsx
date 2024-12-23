@@ -15,6 +15,7 @@ const Navbar = () => {
                 <Link
                     onClick={() => navDispatch({ type: 'HOME' })}
                     to={'/'}
+                    title="Home page"
                     className={`
                         ${navState.home ? 'text-yellow-300' : 'text-color-dark dark:text-color-light'} 
                         ${headerState.checklist ? 'opacity-50' : ''} 
@@ -29,6 +30,7 @@ const Navbar = () => {
                 <Link
                     onClick={() => navDispatch({ type: 'FOLDERS' })}
                     to={'/folders'}
+                    title="Folders page"
                     className={`
                         ${navState.folders ? 'text-yellow-300' : 'text-color-dark dark:text-color-light'} 
                         ${headerState.checklist ? 'opacity-50' : ''} 

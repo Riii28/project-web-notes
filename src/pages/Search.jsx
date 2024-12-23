@@ -36,23 +36,17 @@ const Search = () => {
     }
 
     return (
-        <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={transitions}
-            transition={{ duration: 0.5 }}  
-        >
-            <div className="fixed top-0 left-0 w-full px-3 pt-4">
+        <>
+            <div className="fixed top-0 left-0 w-full px-3 pt-4 bg-color-light text-color-dark dark:bg-color-dark dark:text-color-light transition-colors duration-200">
                 <div className="flex justify-between items-center">
                     <Link
                         to={'/'}
                         className="flex items-center gap-x-3"
                     >
                         <FontAwesomeIcon
-                            size="lg"
-                            icon={faChevronLeft}
-                        />
+                        size="lg"
+                        icon={faChevronLeft}
+                    />
                         <span className="block text-2xl">Back</span>
                     </Link>
                     <span className="block font-semibold text-2xl">Search</span>
@@ -67,7 +61,14 @@ const Search = () => {
                     />
                 </div>
             </div>
-            <div className="mt-36 flex flex-col gap-y-3 mx-3">
+            <motion.div 
+                className="flex pt-36 flex-col gap-y-3 mx-3"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={transitions}
+                transition={{ duration: 0.5 }}      
+            >
                 {results.length > 0 ? (
                     results.map((note) => (
                         <div
@@ -83,10 +84,10 @@ const Search = () => {
                         </div>
                     ))
                 ) : (
-                    <span className="text-2xl">No notes</span>
+                    <span className="block text-2xl">No notes</span>
                 )}
-            </div>
-        </motion.div>
+            </motion.div>
+        </>
     )
 }
 

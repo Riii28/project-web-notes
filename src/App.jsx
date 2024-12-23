@@ -1,9 +1,8 @@
 import './styles/App.css'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, HashRouter } from 'react-router-dom'
 import { AnimatePresence } from "framer-motion"
 import { Toaster } from 'react-hot-toast'
-import { AppProviders } from './contexts/app-provider.jsx'
 import { routes } from './routes/index.js'
 import { useTheme } from './contexts/theme-provider.jsx'
 
@@ -11,7 +10,7 @@ const App = () => {
     const { theme } = useTheme()
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Toaster 
                 position='top-center'
                 reverseOrder={true}
@@ -41,7 +40,7 @@ const App = () => {
                     ))}
                 </Routes>
             </AnimatePresence>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

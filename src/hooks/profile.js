@@ -4,7 +4,8 @@ export const initialState = {
     preview: localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile')) : profileDefault,
     final: localStorage.getItem('profile') ? JSON.parse(localStorage.getItem('profile')) : profileDefault,
     edit: false,
-    detail: false
+    detail: false,
+    confirms: false
 }
 
 export const reducer = (state, action) => {
@@ -40,6 +41,10 @@ export const reducer = (state, action) => {
         case 'ON_DETAIL':
             return {
                 ...state, detail: !state.detail
+            }
+        case 'ON_CONFIRM':
+            return {
+                ...state, confirms: !state.confirms
             }
         default:
             throw new Error('Unknown action type')

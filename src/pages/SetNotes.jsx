@@ -32,18 +32,17 @@ const SetNotes = () => {
     const handleSave = () => {
         if (notesState.title.trim() && notesState.content.trim()) {
             notesDispatch({ type: 'SAVE_NOTE', payload: { noteID: noteID ? parseInt(noteID, 10) : null }})
-            
             navigate('/')
             navDispatch({ type: 'HOME' })
             toast.success('Saved')
-        } else {
-            toast.error('Isi yang bener woi')
+            return
         }
+        toast.error('Isi yang bener woi')
     }
 
     return (
         <>
-            <div className="fixed top-0 left-0 w-full flex justify-between items-center px-3 pt-4">
+            <div className="fixed top-0 left-0 w-full flex justify-between items-center px-4 pt-4">
                 <Link
                     onClick={() => navDispatch({ type: 'HOME' })}
                     to={'/'}
@@ -55,13 +54,13 @@ const SetNotes = () => {
                     />
                     <span className="block text-2xl">Back</span>
                 </Link>
-                <div>
-                    <FontAwesomeIcon
-                        onClick={handleSave}
-                        size="xl" 
-                        icon={faCheck}
-                    />
-                </div>
+                <FontAwesomeIcon
+                    onClick={handleSave}
+                    size="xl" 
+                    icon={faCheck}
+                    cursor='pointer'
+                    title="Save"
+                />
             </div>
             <div className="mt-20 flex flex-col p-3">
                 <input
